@@ -1,18 +1,31 @@
-//handle start again (when hitting enter becomes start)
-//weighted tiles
-//timer
+//weighted tiles?
+//understand Math.random
+//number of letter tiles are different; only 1 x
+//randomized success msg
+//bonus extra time
 var tiles = Array.from(document.getElementsByClassName("tile"));
 var played = Array.from(document.getElementsByClassName("played"));
 var score = document.getElementById("score");
 var error = document.getElementById("error");
 var timer = document.getElementById("timer");
+var startBtn = document.getElementById("start");
 
 var vowels = [65,69,73,79,85]
+var vowelsScore = [1,1,1,1,1]
 var consonants = [66,67,68,70,71,72,74,75,76,77,78,80,81,82,83,84,86,87,88,89,90];
+var consonantsScore = [3,3,2,4,2,4,8,5,1,4,1,3,10,1,1,1,4,4,8,4,10]
+var points = {}
+vowels.forEach(function(tile,index) {
+    points[tile] = vowelsScore[index];
+})
+consonants.forEach(function(tile,index) {
+    points[tile] = consonantsScore[index];
+})
 var originalRack;
 var rack = [];
 var word = [];
 var dict = [];
+var wordTaken = [];
 $(function(){
         $.get('./WWF.txt', function(data){
             async: false;
@@ -20,7 +33,7 @@ $(function(){
         });
     });
 
-var original = 5; //change original value here
+var original = 45; //change original value here
 var secDuration = original;	// How long the timer is set, in seconds
 var running = false;		// A boolean
 var timerInterval = secDuration;
@@ -29,6 +42,13 @@ var timesUp = false;
 var pause = false;
 
 function start(e) {
+    if (timesUp) {
+        secDuration = original;
+        timesUp = false;
+        score.innerHTML = 0;
+        wordTaken = [];
+    }
+    startBtn.style.visibility = 'hidden';
     //vowelsNum is randomized between 2 and 3
     var vowelsNum = Math.floor(Math.random() * 2) + 2;
     var consonantsNum = 7 - vowelsNum
@@ -54,6 +74,12 @@ function start(e) {
         if (secDuration == 0) {
             timesUp = true;
             error.innerHTML = "Time's up!"
+            startBtn.style.visibility = 'visible';
+            rack=[];
+            word=[];
+            played.forEach(function(tile, index) {
+                played[index].src = "";
+            })
         } else {
             render(timer, (secDuration--) - 1);
         }
@@ -77,13 +103,24 @@ function play(e) {
     */
     if (key == 13) {
         played.forEach(function(each) {
-            each.innerHTML = "";
+            each.src = "";
         });
         var wordPlayed = word.join("");
         if (dict.includes(wordPlayed)) {
-            var earned = Number(score.innerHTML) + 10
-            score.innerHTML = earned;
-            error.innerHTML = "AWESOME!";
+            if (wordTaken.includes(wordPlayed)) {
+                error.innerHTML = "NO REPEAT!"
+            }
+            else {
+                var scored = 0;
+                word.forEach(function(letter) {
+                    scored += points[letter.charCodeAt(0)]
+                })
+                console.log("You score " + scored);
+                var earned = Number(score.innerHTML) + scored
+                score.innerHTML = earned;
+                error.innerHTML = "AWESOME!";
+                wordTaken.push(wordPlayed)
+            }
         }
         else {
             error.innerHTML = "NOPE!"
@@ -98,7 +135,7 @@ function play(e) {
         if (rack.includes(key)) {
             var l = word.length;
             var letter = String.fromCharCode(key);
-            played[l].innerHTML = letter;
+            played[l].src = "./scrabble_2d/small/letter_" + letter + ".png";;
             word.push(letter);
             rack.splice(rack.indexOf(key),1);
         }

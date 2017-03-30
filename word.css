@@ -1,33 +1,61 @@
 html {
     padding-top: 50px;
     padding-bottom: 50px;
-    padding-left: 50px;
-    padding-right: 50px;
+    padding-left: 0px;
+    padding-right: 0px;
     text-align: center;
 }
 
 h1 {
-    padding-bottom: 40px;
+    padding-bottom: 0px;
 }
 
 #given {
-    
+    padding-left: 0px;
+    padding-right: 0px;
+    height: 80px;
+    width: 500px;
+    padding-top: 10px;
+    padding-bottom: 40px;
 }
 
 #played {
-    
+    padding-left: 0px;
+    padding-right: 0px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    height: 120px;
+    width: 500px;
 }
 
-#scoreDiv {
-    
+.errorClass {
+    padding-left: 0px;
+    padding-right: 0px;
+    align-items: center;
+    font-size: 40px;
+    font-family:sans-serif;
+    font-weight: 600;
+    color:darkkhaki
 }
 
-#errorDiv {
-    
+.scoreClass {
+    align-items: center;
+    padding-left: 0px;
+    padding-right: 0px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-size: 30px;
+    height: 50px;
+    font-family: Courier New;
 }
 
 #timer {
-     color: white;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    color: white;
+    background-color: darksalmon;
+    width: 200px;
     font-size: 400%;
     font-family: Impact;
     font-weight: 300;
@@ -35,5 +63,5 @@ h1 {
 }
 
 #start {
-    
+    margin-top: 05x;
 }
