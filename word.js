@@ -24,16 +24,16 @@ consonants.forEach(function(tile,index) {
 var originalRack;
 var rack = [];
 var word = [];
-var dict = ["PI"];
+var dict = [];
 var wordTaken = [];
-/*
+
 $(function(){
         $.get('./WWF.txt', function(data){
             async: false;
             dict = data.split('\n');
         });
     });
-*/
+
 var original = 45; //change original value here
 var secDuration = original;	// How long the timer is set, in seconds
 var running = false;		// A boolean
