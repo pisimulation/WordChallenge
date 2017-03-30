@@ -26,6 +26,7 @@ var running = false;		// A boolean
 var timerInterval = secDuration;
 var clickStart = 0;
 var timesUp = false;
+var pause = false;
 
 function start(e) {
     //vowelsNum is randomized between 2 and 3
@@ -38,7 +39,7 @@ function start(e) {
         rack.push(consonants[Math.floor(Math.random() * consonants.length)]);
     }
     rack.forEach(function(tile,index) {
-      tiles[index].innerHTML = String.fromCharCode(tile);  
+      tiles[index].src = "./scrabble_2d/small/letter_" + String.fromCharCode(tile) + ".png";  
     })
     originalRack = rack.slice();
     
@@ -61,10 +62,19 @@ function start(e) {
 }
 
 function play(e) {
-    if (timesUp) {
+    if (timesUp || pause) {
         return;
     }
     var key = e.keyCode
+    /*
+    //PAUSE UNIMPLEMENTED
+    if (key == 32) {
+        clickStart = 0;
+        clearInterval(timerInterval);
+        pause = true;
+        return;
+    }
+    */
     if (key == 13) {
         played.forEach(function(each) {
             each.innerHTML = "";
@@ -72,7 +82,8 @@ function play(e) {
         var wordPlayed = word.join("");
         if (dict.includes(wordPlayed)) {
             var earned = Number(score.innerHTML) + 10
-            score.innerHTML = earned
+            score.innerHTML = earned;
+            error.innerHTML = "AWESOME!";
         }
         else {
             error.innerHTML = "NOPE!"

@@ -1,0 +1,39 @@
+html {
+    padding-top: 50px;
+    padding-bottom: 50px;
+    padding-left: 50px;
+    padding-right: 50px;
+    text-align: center;
+}
+
+h1 {
+    padding-bottom: 40px;
+}
+
+#given {
+    
+}
+
+#played {
+    
+}
+
+#scoreDiv {
+    
+}
+
+#errorDiv {
+    
+}
+
+#timer {
+     color: white;
+    font-size: 400%;
+    font-family: Impact;
+    font-weight: 300;
+    text-shadow: 4px 0 0 black, -4px 0 0 black, 0 4px 0 black, 0 -4px 0 black, 3px 3px black, -3px -3px 0 black, 3px -3px 0 black, -3px 3px 0 black;
+}
+
+#start {
+    
+}

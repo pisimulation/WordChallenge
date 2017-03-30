@@ -3,22 +3,24 @@
 <head>
     <title>Word Challenge</title>
     <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="word.css" rel="stylesheet">
 </head>
 <body>
     <h1>Word Challenge</h1>
-    <div>
+    <div class="container" id="given">
     <p>
-        <span class="tile" id="1"></span>
-        <span class="tile" id="2"></span>
-        <span class="tile" id="3"></span>
-        <span class="tile" id="4"></span>
-        <span class="tile" id="5"></span>
-        <span class="tile" id="6"></span>
-        <span class="tile" id="7"></span>
+        <img class="tile" src="./scrabble_2d/small/letter_.png">
+        <img class="tile" src="./scrabble_2d/small/letter_.png">
+        <img class="tile" src="./scrabble_2d/small/letter_.png">
+        <img class="tile" src="./scrabble_2d/small/letter_.png">
+        <img class="tile" src="./scrabble_2d/small/letter_.png">
+        <img class="tile" src="./scrabble_2d/small/letter_.png">
+        <img class="tile" src="./scrabble_2d/small/letter_.png">
     </p>
     </div>
     
-    <div>
+    <div class="container" id="played">
     <p>
         <span class="played"></span>
         <span class="played"></span>
@@ -30,20 +32,27 @@
     </p>
     </div>
     
-    <div>
+    <div class="container" id="scoreDiv">
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 col-lg-offset-3 col-md-offset-3 col-sm-offset-3 col-xs-offset-3">
+    <div class="thumbnail">
     <p>
         Score: <span id="score">0</span>    
     </p>
     </div>
-    
-    <div>
-    <p id="error"></p>    
+    </div>
     </div>
     
-    <div id="timer"></div>
+    <div class="container" id="errorDiv">
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 col-lg-offset-3 col-md-offset-3 col-sm-offset-3 col-xs-offset-3">
+    <div class="thumbnail">
+        <p id="error">make as many words as you can in 45 seconds</p>
+    </div>
+    </div>
+    </div>
+        
+    <div class="container" id="timer"></div>
     
-    <button id="start">START</button>
+    <button id="start" type="button" class="btn btn-primary">START</button>
     <script src="word.js"></script>
-    
 </body>
 </html>

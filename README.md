@@ -1,14 +1,14 @@
-# WordChallenge
+# Word Challenge
 
 Anagram game inspired by Playfish’s Word Challenge that doesn’t exist anymore
 
 ## Status
 
-(no-frills version) The game is playable but some CSS and extra game features still need to be added.
+(no-frills version) The game is playable but more CSS and extra game features still need to be added.
 
 ## Tool Used
 
-JavaScript, jQuery, HTML, CSS
+JavaScript, jQuery, HTML, Bootstrap
 
 ## Acknowledgement
 
