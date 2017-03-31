@@ -39,7 +39,7 @@ xhttp.send();
 dict = xhttp.responseText.split('\n')
 
 var original = 45; //change original value here
-var bonus = 5; //change bonus value here
+var bonus = 3; //change bonus value here
 var secDuration = original;	// How long the timer is set, in seconds
 var running = false;		// A boolean
 var timerInterval = secDuration;
