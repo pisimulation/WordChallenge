@@ -170,8 +170,11 @@ function play(e) {
     
     //delete
     if (key == 8) {
+        var deleted = word[word.length - 1].charCodeAt(0);
         word.pop();
         played[word.length].src = "";
+        var i = originalRack.indexOf(deleted)
+        tiles[i].classList.remove("down")
     }
         
     if(word.length > 6) {
