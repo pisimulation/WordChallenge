@@ -7,7 +7,7 @@ html {
 }
 
 body {
-    background-image: url("symphony.png");
+    background-image: url("restaurant_icons.png");
 }
 
 h1 {
@@ -85,7 +85,12 @@ h1 {
     font-family: Courier New;
 }
 
-.btn-warning{
+.btn-warning {
     background: darksalmon;
+    color: #ffffff;
+}
+
+.btn-warning:hover {
+    background: darkgray;
     color: #ffffff;
 }
