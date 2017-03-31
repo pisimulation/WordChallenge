@@ -2,8 +2,8 @@
 <html>
 <head>
     <title>Word Challenge</title>
-    <script type="text/javascript" src="jquery-3.2.0.min.js"></script>
-    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css"
+      rel="stylesheet">
     <link href="word.css" rel="stylesheet">
 </head>
 <body>
@@ -46,12 +46,19 @@
     <div class="container" id="errorDiv">
     <div class="text-center">
     <div class="errorClass">
-        <p id="error">make as many words as you can in</p>
+        <p id="error">type as many words as you can in</p>
     </div>
     </div>
     </div>
         
     <div class="container" id="timer"></div>
+    <audio data-audio="tick" src="tick.mp3"></audio>
+    <audio data-audio="end" src="end.wav"></audio>
+    <audio data-audio="correct" src="correct.wav"></audio>
+    <audio data-audio="incorrect" src="incorrect.wav"></audio>
+    <audio data-audio="repeat" src="repeat.wav"></audio>
+    <audio data-audio="extra" src="extra.wav"></audio>
+    
     
     <script src="word.js"></script>
 </body>

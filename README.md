@@ -1,14 +1,19 @@
 # Word Challenge
 
-Anagram game inspired by Playfish’s Word Challenge that doesn’t exist anymore
+Anagram game in pure JavaScript inspired by Playfish’s Word Challenge that doesn’t exist anymore
 
-## Status
+## Play
 
-(no-frills version) The game is playable but more CSS and extra game features still need to be added.
+https://coconutpi.github.io/WordChallenge
+
+* **Type** as many words as you can in 45 seconds
+* ENTER to submit the word
+* Scores are based on Scrabble letter values (e.g. A=1 points, B=3 points, etc.)
+* Get extra 5 seconds for 3 consecutive correct words
 
 ## Tool Used
 
-JavaScript, jQuery, HTML, Bootstrap
+JavaScript, HTML, Bootstrap
 
 ## Acknowledgement
 
