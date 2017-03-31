@@ -2,6 +2,7 @@
 Possible extra features:
 - weighted tiles? understand Math.random
 - randomized success msg
+- Joomy said "at the end, you can list what words the user got right, what words the user got wrong, and what else they could write. i would love to see what words i missed."
 */
 var tiles = Array.from(document.getElementsByClassName("tile"));
 var played = Array.from(document.getElementsByClassName("played"));
@@ -54,7 +55,7 @@ xhttp.send();
 dict = xhttp.responseText.split('\n')
 
 var original = 45; //change original value here
-var bonus = 3; //change bonus value here
+var bonus = 5; //change bonus value here
 var secDuration = original;	// How long the timer is set, in seconds
 var running = false;		// A boolean
 var timerInterval = secDuration;
@@ -174,7 +175,8 @@ function play(e) {
             var l = word.length;
             var letter = String.fromCharCode(key);
             played[l].src = "scrabble_2d/small/letter_" + letter.toLowerCase() + ".png";;
-            tiles[l].classList.toggle("down")
+            var i = originalRack.indexOf(key)
+            tiles[i].classList.toggle("down")
             word.push(letter);
             rack.splice(rack.indexOf(key),1);
         }
@@ -188,7 +190,7 @@ function play(e) {
         secDuration += bonus;
         toBonus = 0
         extraAudio.play();
-        error.innerHTML = "+5 seconds!"
+        error.innerHTML = "+" + bonus + "seconds!"
     } 
     
 }
@@ -220,4 +222,3 @@ function render(displayDiv, totalSeconds) {
 render(timer, secDuration);
 document.getElementById("start").addEventListener("click", start);
 window.addEventListener('keydown', play);
-
