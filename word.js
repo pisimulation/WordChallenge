@@ -54,7 +54,7 @@ xhttp.open("GET", "WWF.txt", false);
 xhttp.send();
 dict = xhttp.responseText.split('\n')
 
-var original = 45; //change original value here
+var original = 50; //change original value here
 var bonus = 5; //change bonus value here
 var secDuration = original;	// How long the timer is set, in seconds
 var running = false;		// A boolean
@@ -190,7 +190,7 @@ function play(e) {
         secDuration += bonus;
         toBonus = 0
         extraAudio.play();
-        error.innerHTML = "+" + bonus + "seconds!"
+        error.innerHTML = "+" + bonus + " seconds!"
     } 
     
 }
