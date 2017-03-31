@@ -167,6 +167,13 @@ function play(e) {
         word = [];
         rack = originalRack.slice();
     }
+    
+    //delete
+    if (key == 8) {
+        word.pop();
+        played[word.length].src = "";
+    }
+        
     if(word.length > 6) {
         return;
     }
