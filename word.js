@@ -176,8 +176,6 @@ function play(e) {
         var i = originalRack.indexOf(deleted)
         tiles[i].classList.remove("down")
         rack.push(deleted)
-        console.log(deleted)
-        console.log(rack);
     }
         
     if(word.length > 6) {
