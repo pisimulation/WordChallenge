@@ -2,13 +2,18 @@
 //understand Math.random
 //number of letter tiles are different; only 1 x
 //randomized success msg
-//bonus extra time
 var tiles = Array.from(document.getElementsByClassName("tile"));
 var played = Array.from(document.getElementsByClassName("played"));
 var score = document.getElementById("score");
 var error = document.getElementById("error");
 var timer = document.getElementById("timer");
 var startBtn = document.getElementById("start");
+var tickAudio = document.querySelector("audio[data-audio=\"tick\"]");
+var endAudio = document.querySelector("audio[data-audio=\"end\"]");
+var correctAudio = document.querySelector("audio[data-audio=\"correct\"]");
+var incorrectAudio = document.querySelector("audio[data-audio=\"incorrect\"]");
+var repeatAudio = document.querySelector("audio[data-audio=\"repeat\"]");
+var extraAudio = document.querySelector("audio[data-audio=\"extra\"]");
 
 var vowels = [65,69,73,79,85]
 var vowelsScore = [1,1,1,1,1]
@@ -26,14 +31,15 @@ var rack = [];
 var word = [];
 var dict = [];
 var wordTaken = [];
-$(function(){
-        $.get('./WWF.txt', function(data){
-            async: false;
-            dict = data.split('\n');
-        });
-    });
+var toBonus = 0;
+
+var xhttp = new XMLHttpRequest();
+xhttp.open("GET", "WWF.txt", false);
+xhttp.send();
+dict = xhttp.responseText.split('\n')
 
 var original = 45; //change original value here
+var bonus = 3; //change bonus value here
 var secDuration = original;	// How long the timer is set, in seconds
 var running = false;		// A boolean
 var timerInterval = secDuration;
@@ -59,7 +65,7 @@ function start(e) {
         rack.push(consonants[Math.floor(Math.random() * consonants.length)]);
     }
     rack.forEach(function(tile,index) {
-      tiles[index].src = "./scrabble_2d/small/letter_" + String.fromCharCode(tile) + ".png";  
+      tiles[index].src = "scrabble_2d/small/letter_" + String.fromCharCode(tile).toLowerCase() + ".png";  
     })
     originalRack = rack.slice();
     
@@ -70,6 +76,7 @@ function start(e) {
     else {
         return;
     }
+    var ended = false;
     timerInterval = setInterval(function() {
         if (secDuration == 0) {
             timesUp = true;
@@ -80,8 +87,16 @@ function start(e) {
             played.forEach(function(tile, index) {
                 played[index].src = "";
             })
+            if (!ended) {
+                endAudio.play();    
+                ended = true;
+            }
+            
         } else {
             render(timer, (secDuration--) - 1);
+            if (secDuration < 11) {
+                tickAudio.play();
+            }
         }
     }, 1000);
     e.stopImmediatePropagation();
@@ -102,6 +117,9 @@ function play(e) {
     }
     */
     if (key == 13) {
+        tiles.forEach(function(tile) {
+            tile.classList.remove("down");
+        })
         played.forEach(function(each) {
             each.src = "";
         });
@@ -109,6 +127,7 @@ function play(e) {
         if (dict.includes(wordPlayed)) {
             if (wordTaken.includes(wordPlayed)) {
                 error.innerHTML = "NO REPEAT!"
+                repeatAudio.play();
             }
             else {
                 var scored = 0;
@@ -120,10 +139,14 @@ function play(e) {
                 score.innerHTML = earned;
                 error.innerHTML = "AWESOME!";
                 wordTaken.push(wordPlayed)
+                correctAudio.play();
+                toBonus += 1;
             }
         }
         else {
             error.innerHTML = "NOPE!"
+            incorrectAudio.play()
+            toBonus = 0;
         }
         word = [];
         rack = originalRack.slice();
@@ -135,11 +158,23 @@ function play(e) {
         if (rack.includes(key)) {
             var l = word.length;
             var letter = String.fromCharCode(key);
-            played[l].src = "./scrabble_2d/small/letter_" + letter + ".png";;
+            played[l].src = "scrabble_2d/small/letter_" + letter.toLowerCase() + ".png";;
+            tiles[l].classList.toggle("down")
             word.push(letter);
             rack.splice(rack.indexOf(key),1);
         }
+        else {
+            //wrong key
+        }
     }
+    
+    //extra time
+    if (toBonus == 3) {
+        secDuration += bonus;
+        toBonus = 0
+        extraAudio.play();
+        error.innerHTML = "+5 seconds!"
+    } 
     
 }
 
@@ -170,3 +205,4 @@ function render(displayDiv, totalSeconds) {
 render(timer, secDuration);
 document.getElementById("start").addEventListener("click", start);
 window.addEventListener('keydown', play);
+
