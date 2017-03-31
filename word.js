@@ -1,7 +1,8 @@
-//weighted tiles?
-//understand Math.random
-//number of letter tiles are different; only 1 x
-//randomized success msg
+/*
+Possible extra features:
+- weighted tiles? understand Math.random
+- randomized success msg
+*/
 var tiles = Array.from(document.getElementsByClassName("tile"));
 var played = Array.from(document.getElementsByClassName("played"));
 var score = document.getElementById("score");
@@ -15,15 +16,29 @@ var incorrectAudio = document.querySelector("audio[data-audio=\"incorrect\"]");
 var repeatAudio = document.querySelector("audio[data-audio=\"repeat\"]");
 var extraAudio = document.querySelector("audio[data-audio=\"extra\"]");
 
-var vowels = [65,69,73,79,85]
+// map a tile to its freq
+function map(letters, freqs) {
+    var newLetters = []
+    letters.forEach(function(letter, index) {
+        for (var i = 0; i < freqs[index]; i++) {
+            newLetters.push(letter);
+        }
+    })
+    return newLetters
+}
+var vowelsTile = [65,69,73,79,85]
+var vowelsFreq = [9,12,9,8,4]
 var vowelsScore = [1,1,1,1,1]
-var consonants = [66,67,68,70,71,72,74,75,76,77,78,80,81,82,83,84,86,87,88,89,90];
-var consonantsScore = [3,3,2,4,2,4,8,5,1,4,1,3,10,1,1,1,4,4,8,4,10]
+var vowels = map(vowelsTile,vowelsFreq)
+var consonantsTile = [66,67,68,70,71,72,74,75,76,77,78,80,81,82,83,84,86,87,88,89,90];
+var consonantsFreq = [2,2,4,2,3,2,1,1,4,2,6,2,1,6,4,6,2,2,1,2,1];
+var consonantsScore = [3,3,2,4,2,4,8,5,1,4,1,3,10,1,1,1,4,4,8,4,10];
+var consonants = map(consonantsTile, consonantsFreq)
 var points = {}
-vowels.forEach(function(tile,index) {
+vowelsTile.forEach(function(tile,index) {
     points[tile] = vowelsScore[index];
 })
-consonants.forEach(function(tile,index) {
+consonantsTile.forEach(function(tile,index) {
     points[tile] = consonantsScore[index];
 })
 var originalRack;
