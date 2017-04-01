@@ -57,7 +57,7 @@ xhttp.open("GET", "WWF.txt", false);
 xhttp.send();
 dict = xhttp.responseText.split('\n')
 
-var original = 50; //change original value here
+var original = 3; //change original value here
 var bonus = 5; //change bonus value here
 var secDuration = original;	// How long the timer is set, in seconds
 var running = false;		// A boolean
@@ -65,17 +65,21 @@ var timerInterval = secDuration;
 var clickStart = 0;
 var timesUp = false;
 var pause = false;
-
+var soundPlayed = false;
 //anagram solver
 var missed = []
 answer.style.visibility = 'hidden'
 function start(e) {
+    soundPlayed = false;
     if (timesUp) {
         secDuration = original;
         timesUp = false;
         score.innerHTML = 0;
         wordTaken = [];
     }
+    answer.style.visibility = 'hidden'
+    youGot.innerHTML = "";
+    youMissed.innerHTML = "";
     startBtn.style.visibility = 'hidden';
     //vowelsNum is randomized between 2 and 3
     var vowelsNum = Math.floor(Math.random() * 2) + 2;
@@ -98,8 +102,9 @@ function start(e) {
     else {
         return;
     }
-    var ended = false;
+    
     timerInterval = setInterval(function() {
+        var ended = false;
         if (secDuration == 0) {
             timesUp = true;
             error.innerHTML = "Time's up!"
@@ -109,8 +114,12 @@ function start(e) {
             played.forEach(function(tile, index) {
                 played[index].src = "";
             })
+            
+            if (!soundPlayed) {
+                endAudio.play();
+                soundPlayed = true;
+            }
             if (!ended) {
-                endAudio.play();    
                 ended = true;
                 report(wordTaken);
                 youGot.innerHTML = wordTaken;
@@ -163,7 +172,7 @@ function play(e) {
                 var earned = Number(score.innerHTML) + scored
                 score.innerHTML = earned;
                 error.innerHTML = "AWESOME!";
-                wordTaken.push(wordPlayed.toLowerCase())
+                wordTaken.push(wordPlayed)
                 correctAudio.play();
                 toBonus += 1;
             }
