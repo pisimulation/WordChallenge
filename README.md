@@ -1,6 +1,8 @@
 # Word Challenge
 
-Anagram game in pure JavaScript inspired by Playfish’s Word Challenge that doesn’t exist anymore
+**Anagram game** and **anagram solver** in pure JavaScript 
+
+inspired by Playfish’s Word Challenge that doesn’t exist anymore
 
 ## Play
 
@@ -10,6 +12,7 @@ https://coconutpi.github.io/WordChallenge
 * ENTER to submit the word
 * Scores are based on Scrabble letter values (e.g. A=1 points, B=3 points, etc.)
 * Get extra 5 seconds for 3 consecutive correct words
+* Words you missed will be reported when game ends
 
 ## Tool Used
 

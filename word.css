@@ -7,12 +7,14 @@ html {
 }
 
 body {
-    background-image: url("retina_wood.png");
+    background-image: url("restaurant_icons.png");
 }
 
 h1 {
     padding-bottom: 0px;
     font-size: 60px;
+    font-family: Courier New;
+    font-weight: 700;
 }
 
 #given {
@@ -33,37 +35,38 @@ h1 {
     width: 500px;
 }
 
-.errorClass {
-    padding-left: 0px;
-    padding-right: 0px;
-    align-items: center;
-    font-size: 30px;
-    font-family: sans-serif;
-    font-weight: 600;
-    color:darkkhaki;
-}
-
 .scoreClass {
     align-items: center;
     padding-left: 0px;
     padding-right: 0px;
     padding-top: 10px;
     padding-bottom: 10px;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
     font-size: 40px;
     height: 50px;
     font-family: Courier New;
+    color: darksalmon;
+    font-weight: 700
 }
 
+.errorClass {
+    padding-left: 0px;
+    padding-right: 0px;
+    align-items: center;
+    font-size: 30px;
+    font-family: Courier New;
+    font-weight: 600;
+}
+
+
 #timer {
-    padding-top: 10px;
+    padding-top: 0px;
     padding-bottom: 10px;
     margin-bottom: 10px;
     color: white;
-    background-color: darksalmon;
     width: 200px;
     font-size: 400%;
-    font-family: Impact;
+    font-family: Courier New;
     font-weight: 300;
     text-shadow: 4px 0 0 black, -4px 0 0 black, 0 4px 0 black, 0 -4px 0 black, 3px 3px black, -3px -3px 0 black, 3px -3px 0 black, -3px 3px 0 black;
 }
@@ -76,4 +79,38 @@ h1 {
   transform:scale(1.1);
   border-color:#ffc600;
   box-shadow: 0 0 10px #ffc600;
+}
+
+#source {
+    font-family: Courier New;
+}
+
+.btn-warning {
+    font-family: Courier New;
+    background: darksalmon;
+    color: #ffffff;
+}
+
+.btn-warning:hover {
+    background: darkgray;
+    color: #ffffff;
+}
+
+#answerHeader {
+    color: white;
+    font-family: Courier New;
+    font-weight: 500;
+    font-size: 20px;
+    background-color: darksalmon;
+}
+
+.answer {
+    font-family: Courier New;
+    font-weight: 500;
+    font-size: 20px;
+    word-wrap: break-word;
+}
+
+#answer {
+    visibility: hidden;
 }

@@ -9,6 +9,9 @@ var played = Array.from(document.getElementsByClassName("played"));
 var score = document.getElementById("score");
 var error = document.getElementById("error");
 var timer = document.getElementById("timer");
+var youGot = document.getElementById("youGot");
+var youMissed = document.getElementById("youMissed");
+var answer = document.getElementById("answer");
 var startBtn = document.getElementById("start");
 var tickAudio = document.querySelector("audio[data-audio=\"tick\"]");
 var endAudio = document.querySelector("audio[data-audio=\"end\"]");
@@ -62,14 +65,21 @@ var timerInterval = secDuration;
 var clickStart = 0;
 var timesUp = false;
 var pause = false;
-
+var soundPlayed = false;
+//anagram solver
+var missed = []
+answer.style.visibility = 'hidden'
 function start(e) {
+    soundPlayed = false;
     if (timesUp) {
         secDuration = original;
         timesUp = false;
         score.innerHTML = 0;
         wordTaken = [];
     }
+    answer.style.visibility = 'hidden'
+    youGot.innerHTML = "";
+    youMissed.innerHTML = "";
     startBtn.style.visibility = 'hidden';
     //vowelsNum is randomized between 2 and 3
     var vowelsNum = Math.floor(Math.random() * 2) + 2;
@@ -92,8 +102,9 @@ function start(e) {
     else {
         return;
     }
-    var ended = false;
+    
     timerInterval = setInterval(function() {
+        var ended = false;
         if (secDuration == 0) {
             timesUp = true;
             error.innerHTML = "Time's up!"
@@ -103,9 +114,17 @@ function start(e) {
             played.forEach(function(tile, index) {
                 played[index].src = "";
             })
+            
+            if (!soundPlayed) {
+                endAudio.play();
+                soundPlayed = true;
+            }
             if (!ended) {
-                endAudio.play();    
                 ended = true;
+                report(wordTaken);
+                youGot.innerHTML = wordTaken;
+                youMissed.innerHTML = missed;
+                answer.style.visibility = 'visible'
             }
             
         } else {
@@ -150,7 +169,6 @@ function play(e) {
                 word.forEach(function(letter) {
                     scored += points[letter.charCodeAt(0)]
                 })
-                console.log("You score " + scored);
                 var earned = Number(score.innerHTML) + scored
                 score.innerHTML = earned;
                 error.innerHTML = "AWESOME!";
@@ -175,6 +193,7 @@ function play(e) {
         played[word.length].src = "";
         var i = originalRack.indexOf(deleted)
         tiles[i].classList.remove("down")
+        rack.push(deleted)
     }
         
     if(word.length > 6) {
@@ -232,3 +251,97 @@ function render(displayDiv, totalSeconds) {
 render(timer, secDuration);
 document.getElementById("start").addEventListener("click", start);
 window.addEventListener('keydown', play);
+
+/*
+    ANAGRAM SOLVER
+*/
+
+/*
+    For each word in the dict, sort the letters and map the sorted combination (key) to a singleton of original word (value)
+    When a word has the same sorted combination, append each original word into the list
+*/
+
+function makeAllWords(dict) {
+    var allWords = {}
+    dict.forEach(function(word) {
+        var sortedWord = word.split("").sort().join("").toLowerCase();
+        var old = allWords[sortedWord]
+        if (old) {
+            old.push(word.toLowerCase())
+            allWords[sortedWord] = old;
+        }
+        else {
+            allWords[sortedWord] = [word.toLowerCase()];
+        }
+    })
+    return allWords;
+}
+
+var allWords = makeAllWords(dict)
+
+//union arrays, no duplicates in result
+function union_arrays (x, y) {
+  var obj = {};
+  for (var i = x.length-1; i >= 0; -- i)
+     obj[x[i]] = x[i];
+  for (var i = y.length-1; i >= 0; -- i)
+     obj[y[i]] = y[i];
+  var res = []
+  for (var k in obj) {
+    if (obj.hasOwnProperty(k))  // <-- optional
+      res.push(obj[k]);
+  }
+  return res;
+}
+
+//find all permutations of letters
+function permute(leafs) {
+    var branches = [];      
+    if( leafs.length == 1 ) return leafs;       
+    for( var k in leafs ) {
+        var leaf = leafs[k];
+        permute(leafs.join('').replace(leaf,'').split('')).concat("").map(function(subtree) {
+            branches.push([leaf].concat(subtree));
+        });
+    }
+    return branches.map(function(str){return str.join('')});
+};
+
+/*
+    Given 7 letters, find permutations, find anagrams for each sorted permutation
+*/
+function makeAnagram(letters) {
+    var allSS = permute(letters.split(''))
+    var allsortedSS = []
+    allSS.forEach(function(each) {
+        allsortedSS.push(each.split("").sort().join(""));
+    })
+    var anagrams = []
+    allsortedSS.forEach(function(each) {
+        if (allWords[each] != undefined) {
+            var wordsEach = allWords[each]
+            anagrams = union_arrays(anagrams,wordsEach);
+        } 
+    })
+    return anagrams;
+}
+
+/*
+    Given a list of taken words, find word you missed
+*/
+function report(wordTaken) {
+    var rack = originalRack
+    var has = []
+    rack.forEach(function(key) {
+        has.push(String.fromCharCode(key))
+    })
+    has = has.join("");
+    var anagrams = makeAnagram(has.toLowerCase());
+    wordTaken.forEach(function(word) {
+        word = word.toLowerCase();
+        if (anagrams.includes(word)) {
+            anagrams.splice(anagrams.indexOf(word),1);
+        }
+    })
+    missed = anagrams;
+}
