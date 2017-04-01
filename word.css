@@ -86,6 +86,7 @@ h1 {
 }
 
 .btn-warning {
+    font-family: Courier New;
     background: darksalmon;
     color: #ffffff;
 }
@@ -93,4 +94,19 @@ h1 {
 .btn-warning:hover {
     background: darkgray;
     color: #ffffff;
+}
+
+#answerHeader {
+    color: white;
+    font-family: Courier New;
+    font-weight: 500;
+    font-size: 20px;
+    background-color: darksalmon;
+}
+
+.answer {
+    font-family: Courier New;
+    font-weight: 500;
+    font-size: 20px;
+    word-wrap: break-word;
 }
