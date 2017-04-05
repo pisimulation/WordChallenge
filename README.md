@@ -8,15 +8,22 @@ inspired by Playfish’s Word Challenge that doesn’t exist anymore
 
 https://coconutpi.github.io/WordChallenge
 
-* **Type** as many words as you can in 50 seconds
-* ENTER to submit the word
+## Anagram Game
+
+* **Type** as many words as you can in 50 seconds.
+* ENTER to submit the word.
 * Scores are based on Scrabble letter values (e.g. A=1 points, B=3 points, etc.)
-* Get extra 5 seconds for 3 consecutive correct words
-* Words you missed will be reported when game ends
+* Get extra 5 seconds for 3 consecutive correct words.
+* Words you missed will be reported when game ends.
+* High score will be stored in local storage as long as cookies aren't deleted.
+
+## Anagram Solver
+
+Running time: O(n^2 log n) when n = number of all valid words
 
 ## Tool Used
 
-JavaScript, HTML, Bootstrap
+JavaScript, HTML, Bootstrap, Local Storage
 
 ## Acknowledgement
 
