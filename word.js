@@ -57,7 +57,7 @@ xhttp.open("GET", "WWF.txt", false);
 xhttp.send();
 dict = xhttp.responseText.split('\n')
 
-var original = 50; //change original value here
+var original = 5; //change original value here
 var bonus = 5; //change bonus value here
 var secDuration = original;	// How long the timer is set, in seconds
 var running = false;		// A boolean
@@ -118,6 +118,8 @@ function start(e) {
             if (!soundPlayed) {
                 endAudio.play();
                 soundPlayed = true;
+                localStorage.setItem('currentHighScore',JSON.stringify(Number(score.innerHTML)))
+                highScore.innerHTML = localStorage.getItem('currentHighScore');
             }
             if (!ended) {
                 ended = true;
@@ -345,3 +347,15 @@ function report(wordTaken) {
     })
     missed = anagrams;
 }
+
+/*
+    LOCAL STORAGE FOR HIGH SCORE
+*/
+
+var highScore = document.getElementById("highScore")
+
+var currentHighScore = JSON.parse(localStorage.getItem('currentHighScore')) || 0;
+
+highScore.innerHTML = currentHighScore;
+
+
