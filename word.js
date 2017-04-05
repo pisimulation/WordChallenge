@@ -118,6 +118,8 @@ function start(e) {
             if (!soundPlayed) {
                 endAudio.play();
                 soundPlayed = true;
+                localStorage.setItem('currentHighScore',JSON.stringify(Number(score.innerHTML)))
+                highScore.innerHTML = localStorage.getItem('currentHighScore');
             }
             if (!ended) {
                 ended = true;
@@ -345,3 +347,15 @@ function report(wordTaken) {
     })
     missed = anagrams;
 }
+
+/*
+    LOCAL STORAGE FOR HIGH SCORE
+*/
+
+var highScore = document.getElementById("highScore")
+
+var currentHighScore = JSON.parse(localStorage.getItem('currentHighScore')) || 0;
+
+highScore.innerHTML = currentHighScore;
+
+
