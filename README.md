@@ -6,7 +6,7 @@ inspired by Playfish’s Word Challenge that doesn’t exist anymore
 
 ## Play
 
-https://coconutpi.github.io/WordChallenge
+https://pisimulation.github.io/WordChallenge
 
 ## Anagram Game
 
